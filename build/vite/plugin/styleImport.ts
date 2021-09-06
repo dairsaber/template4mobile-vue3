@@ -4,18 +4,13 @@
  */
 import styleImport from 'vite-plugin-style-import'
 
-export function configStyleImportPlugin(isBuild: boolean) {
-  if (!isBuild) {
-    return []
-  }
+export function configStyleImportPlugin() {
   const styleImportPlugin = styleImport({
     libs: [
       {
-        libraryName: 'ant-design-vue',
+        libraryName: 'vant',
         esModule: true,
-        resolveStyle: (name: string) => {
-          return `ant-design-vue/es/${name}/style/index`
-        },
+        resolveStyle: (name: string) => `vant/es/${name}/style`,
       },
     ],
   })

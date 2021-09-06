@@ -90,45 +90,39 @@
     class="flex items-center justify-center min-h-screen px-4 py-12 bg-center bg-no-repeat bg-cover  bg-gray-50 sm:px-6 lg:px-8"
     style="background-image: url(/img/login-bgc.jpg)"
   >
-    <div class="w-full max-w-sm p-3 px-8 space-y-8 bg-white bg-opacity-75 shadow-lg rounded-xl">
+    <div class="w-full max-w-sm p-2 px-4 space-y-8 bg-white bg-opacity-75 shadow-lg rounded-xl">
       <div
         class="flex items-center justify-center w-20 h-20 mx-auto -mt-10 text-5xl transform -translate-y-4 bg-white rounded-full "
       >
         <base-icon icon="all" class="mx-auto" />
       </div>
-      <div class="space-y-2">
-        <div class="relative">
-          <input v-model="loginFormModelRef.username" placeholder="请输入用户名" class="input" />
-        </div>
-        <div class="relative">
-          <input
-            v-model="loginFormModelRef.password"
-            placeholder="请输入密码"
-            :type="showPassword ? 'text' : 'password'"
-            class="input"
+
+      <van-form @submit="handleSubmit">
+        <van-cell-group inset>
+          <van-field
+            v-model="loginFormModelRef.username"
+            name="用户名"
+            label="用户名"
+            placeholder="用户名"
+            :rules="[{ required: true, message: '请填写用户名' }]"
           />
-          <div class="suffix" @click.stop="handleTogglePasswordStatus">
-            <base-icon icon="all" class="icon"></base-icon>
-          </div>
+          <van-field
+            v-model="loginFormModelRef.password"
+            type="password"
+            name="密码"
+            label="密码"
+            placeholder="密码"
+            :rules="[{ required: true, message: '请填写密码' }]"
+          />
+        </van-cell-group>
+        <div class="m-4">
+          <van-button round block type="primary" native-type="submit" :loading="loadingRef">
+            登录
+          </van-button>
         </div>
-      </div>
-      <div class="flex justify-center">
-        <button
-          class="w-full h-full leading-8 text-white bg-blue-400 rounded-sm shadow-md"
-          @click="handleSubmit"
-        >
-          登录
-        </button>
-      </div>
+      </van-form>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-  .input {
-    @apply w-full h-8 px-1 outline-none border-2 border-transparent hover:border-blue-400;
-  }
-  .suffix {
-    @apply absolute right-1 top-0 h-full flex justify-center items-center hover:text-blue-400 cursor-pointer;
-  }
-</style>
+<style lang="scss" scoped></style>

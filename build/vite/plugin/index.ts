@@ -9,7 +9,7 @@ import { configMockPlugin } from './mock'
 // import { configImageminPlugin } from './imagemin'
 import { configCompressPlugin } from './compress'
 
-import viteComponents from 'vite-plugin-components'
+// import viteComponents from 'vite-plugin-components'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 import path from 'path'
 // 解析文件夹
@@ -31,11 +31,11 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     vueJsx(),
     // setup增强
     vueSetupExtend(),
-    viteComponents({
-      // TODO 动态加载 组件
-      // globalComponentsDeclaration: pathResolve('../../../types/components.d.ts'),
-      // customComponentResolvers: [AntDesignVueResolver()],
-    }),
+    // viteComponents({
+    // TODO 动态加载 组件
+    // globalComponentsDeclaration: pathResolve('../../../types/components.d.ts'),
+    // customComponentResolvers: [AntDesignVueResolver()],
+    // }),
     viteSvgIcons({
       iconDirs: [pathResolve('../../../src/assets/icons')],
       symbolId: 'svg-[name]',
@@ -48,7 +48,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild))
 
   // vite-plugin-style-import
-  // vitePlugins.push(configStyleImportPlugin(isBuild))
+  // vitePlugins.push(configStyleImportPlugin())
 
   if (isBuild) {
     //vite-plugin-imagemin 这鬼玩意依赖的包国内不好下载下来
