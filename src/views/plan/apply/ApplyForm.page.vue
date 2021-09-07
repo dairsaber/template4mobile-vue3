@@ -16,24 +16,29 @@
 
 <template>
   <GlobalHeader left-arrow />
-  <div class="flex">
+  <van-cell-group inset>
     <van-field
       v-model="template"
-      is-link
       readonly
       label="模板"
+      center
       placeholder="选择模板"
       @click="showPicker = true"
-    />
-    <van-button
-      class="whitespace-nowrap"
-      icon="delete"
-      color="linear-gradient(to right, #ff6034, #ee0a24)"
-      @click="handleRemoveTemplate"
     >
-      清空
-    </van-button>
-  </div>
+      <template #button>
+        <van-button
+          size="small"
+          class="whitespace-nowrap"
+          icon="delete"
+          color="linear-gradient(to right, #ff6034, #ee0a24)"
+          @click.stop="handleRemoveTemplate"
+        >
+          清空
+        </van-button>
+      </template>
+    </van-field>
+  </van-cell-group>
+
   <van-popup v-model:show="showPicker" round position="bottom">
     <van-picker :columns="columns" @cancel="showPicker = false" @confirm="onConfirm" />
   </van-popup>
