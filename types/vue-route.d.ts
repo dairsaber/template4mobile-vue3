@@ -12,6 +12,7 @@ declare interface AppRouteRecordRaw
   fullPath?: string
   meta?: AppRouteMeta
   roles?: string[]
+  layout?: boolean
   hidden?: boolean
   component?: Component | string
   components?: Component

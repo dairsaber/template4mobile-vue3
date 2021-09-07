@@ -20,9 +20,14 @@
 </script>
 
 <template>
-  <div class="display">{{ dateStr }}</div>
+  <div>
+    <van-grid square>
+      <van-grid-item v-for="value in 100" :key="value" icon="photo-o" text="文字" />
+    </van-grid>
+    <div class="display">{{ dateStr }}</div>
 
-  <a @click="handleLogout">logout</a>
+    <a @click="handleLogout">logout</a>
+  </div>
 </template>
 
 <style lang="scss" scoped>

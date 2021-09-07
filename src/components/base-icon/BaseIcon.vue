@@ -1,16 +1,20 @@
 <script lang="tsx">
-  import { computed, CSSProperties, defineComponent } from 'vue'
-
+  import { computed, CSSProperties, defineComponent, h } from 'vue'
+  import { Icon } from 'vant'
   export default defineComponent({
     props: { icon: { type: String, required: true } },
     setup(props, { attrs }) {
-      const iconName = computed(() => `#svg-${props.icon}`)
+      const isSvgIcon = computed(() => props.icon.startsWith('svg-'))
+      const svgIconName = computed(() => `#${props.icon}`)
 
-      return () => (
-        <svg style={attrs.style as CSSProperties | string} class="svg-icon">
-          <use xlinkHref={iconName.value} fill="currentColor" />
-        </svg>
-      )
+      return () =>
+        isSvgIcon.value ? (
+          <svg style={attrs.style as CSSProperties | string} class="svg-icon">
+            <use xlinkHref={svgIconName.value} fill="currentColor" />
+          </svg>
+        ) : (
+          h(Icon, { name: props.icon, ...attrs })
+        )
     },
   })
 </script>

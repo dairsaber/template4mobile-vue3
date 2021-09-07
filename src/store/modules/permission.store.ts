@@ -2,8 +2,8 @@ import { useUserStore } from '@/store/modules/user.store'
 import type { RemoteRoute } from '@/apis/sys/model/remoteRoute.model'
 import { getRoutesList } from '@/apis/sys/menu.api'
 import { defineStore } from 'pinia'
-import Layout from '@/layout/MainLayout.vue'
-import ParentView from '@/layout/ParentView.vue'
+import Layout from '@/layout/Main.layout.vue'
+import ParentView from '@/layout/Parent.layout.vue'
 import constantRoutes from '@/route/constant.route'
 import { isString, isUrl } from '@/utils/is'
 
@@ -61,7 +61,11 @@ export const filterAsyncRoutes = (routes: RemoteRoute[], roles: string[]): Remot
   return res
 }
 
-export const generateAsyncRoutes = (routes: RemoteRoute[], basePath = '', allPath: string[] = []): MenuRoute[] => {
+export const generateAsyncRoutes = (
+  routes: RemoteRoute[],
+  basePath = '',
+  allPath: string[] = []
+): MenuRoute[] => {
   const asyncRouters = routes.map((route: MenuRoute) => {
     if (route.component && isString(route.component)) {
       if (route.component === 'Layout') {

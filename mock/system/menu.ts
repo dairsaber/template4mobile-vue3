@@ -8,6 +8,7 @@ const data = [
     hidden: false,
     redirect: 'noRedirect',
     component: 'Layout',
+    layout: true,
     meta: { title: '系统管理', icon: 'system', noCache: false, link: null },
     children: [
       {
@@ -15,42 +16,42 @@ const data = [
         path: 'user',
         hidden: false,
         component: 'system/user/UserManager',
-        meta: { title: '用户管理', icon: 'user', noCache: false, link: null },
+        meta: { title: '用户管理', icon: 'friends', noCache: false, link: null },
       },
       {
         name: 'Role',
         path: 'role',
         hidden: false,
         component: 'system/role/index',
-        meta: { title: '角色管理', icon: 'peoples', noCache: false, link: null },
+        meta: { title: '角色管理', icon: 'manager', noCache: false, link: null },
       },
       {
         name: 'Menu',
         path: 'menu',
         hidden: false,
         component: 'system/menu/index',
-        meta: { title: '菜单管理', icon: 'tree-table', noCache: false, link: null },
+        meta: { title: '菜单管理', icon: 'bars', noCache: false, link: null },
       },
       {
         name: 'Dept',
         path: 'dept',
         hidden: false,
         component: 'system/dept/index',
-        meta: { title: '部门管理', icon: 'tree', noCache: false, link: null },
+        meta: { title: '部门管理', icon: 'cluster', noCache: false, link: null },
       },
       {
         name: 'Post',
         path: 'post',
         hidden: true,
         component: 'system/post/index',
-        meta: { title: '岗位管理', icon: 'post', noCache: false, link: null },
+        meta: { title: '岗位管理', icon: 'column', noCache: false, link: null },
       },
       {
         name: 'Dict',
         path: 'dict',
         hidden: false,
         component: 'system/dict/index',
-        meta: { title: '字典管理', icon: 'dict', noCache: false, link: null },
+        meta: { title: '字典管理', icon: 'wap-nav', noCache: false, link: null },
       },
       {
         name: 'Config',
@@ -72,6 +73,7 @@ const data = [
         hidden: true,
         redirect: 'noRedirect',
         component: 'ParentView',
+        layout: true,
 
         meta: { title: '日志管理', icon: 'log', noCache: false, link: null },
         children: [

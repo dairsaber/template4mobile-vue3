@@ -9,4 +9,5 @@ export interface RemoteRoute extends AppRouteRecordRaw {
   num: number
   hidden?: boolean
   children?: RemoteRoute[]
+  layout?: boolean // 是否是layout
 }

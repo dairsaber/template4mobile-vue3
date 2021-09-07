@@ -12,16 +12,18 @@ const constantRoutes: AppRouteRecordRaw[] = [
   },
   {
     path: '',
-    component: () => import('@/layout/MainLayout.vue'),
+    component: () => import('@/layout/Main.layout.vue'),
     redirect: '/home',
+    hidden: true,
+    layout: true,
     meta: { title: '首页', isLayout: true, breadcrumb: false },
     children: [
       //配置在这个children下的路由将会展示在左边menu的第一层 平铺 没有嵌套
       {
         path: 'home',
         name: 'Home',
-        component: () => import('@/views/dashboard/DashBoard.page.vue'),
-        meta: { title: '控制台', icon: 'DashboardOutlined' },
+        component: () => import('@/views/home/Home.page.vue'),
+        meta: { title: '首页', icon: 'DashboardOutlined' },
       },
 
       // {

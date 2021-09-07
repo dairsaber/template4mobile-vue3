@@ -17,9 +17,8 @@
   // 禁止登录状态规则判断
   const loginDisabled = computed(() => {
     return (
-      loginFormModelRef.username.trim() === '' ||
-      loginFormModelRef.password.trim() === '' ||
-      loginFormModelRef.code.trim() === ''
+      loginFormModelRef.username.trim() === '' || loginFormModelRef.password.trim() === '' //||
+      // loginFormModelRef.code.trim() === ''
     )
   })
 
@@ -33,11 +32,11 @@
     getSmsCode()
   })
 
-  const showPassword = ref(false)
+  // const showPassword = ref(false)
 
-  const handleTogglePasswordStatus = () => {
-    showPassword.value = !showPassword.value
-  }
+  // const handleTogglePasswordStatus = () => {
+  //   showPassword.value = !showPassword.value
+  // }
 
   // 页面根据url初始参数设置
   const redirectRef = ref('')
@@ -94,7 +93,7 @@
       <div
         class="flex items-center justify-center w-20 h-20 mx-auto -mt-10 text-5xl transform -translate-y-4 bg-white rounded-full "
       >
-        <base-icon icon="all" class="mx-auto" />
+        <base-icon icon="svg-all" class="mx-auto" />
       </div>
 
       <van-form @submit="handleSubmit">
@@ -116,7 +115,14 @@
           />
         </van-cell-group>
         <div class="m-4">
-          <van-button round block type="primary" native-type="submit" :loading="loadingRef">
+          <van-button
+            round
+            block
+            type="primary"
+            native-type="submit"
+            :loading="loadingRef"
+            :disabled="loginDisabled"
+          >
             登录
           </van-button>
         </div>
