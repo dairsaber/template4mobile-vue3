@@ -19,7 +19,8 @@
   // 跳转
   const handleChange = (idx: number) => {
     const { path } = props.items[idx]
-    console.log(`path`, path)
+    const backLen = window.history.length - 1
+    window.history.go(-backLen)
     router.replace(path)
   }
 </script>

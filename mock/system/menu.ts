@@ -3,6 +3,28 @@ import { resultSuccess } from '../_util'
 
 const data = [
   {
+    name: 'plan',
+    path: '/plan',
+    component: 'Layout',
+    layout: true,
+    meta: { title: '业务', icon: 'system', noCache: false },
+    children: [
+      {
+        name: 'PlanApply',
+        path: 'apply',
+        component: 'plan/apply/Apply',
+        meta: { title: '计划申报', icon: 'shopping-cart', noCache: false },
+      },
+      {
+        name: 'PlanFrom',
+        path: 'form',
+        hidden: true,
+        component: 'plan/apply/ApplyForm',
+        meta: { title: '计划申报', icon: 'shopping-cart', noCache: false },
+      },
+    ],
+  },
+  {
     name: 'System',
     path: '/system',
     hidden: false,
