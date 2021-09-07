@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { RemoteRoute } from '@/apis/sys/model/remoteRoute.model'
   import { usePermissionStore } from '@/store/modules/permission.store'
-  import { computed, toRaw } from 'vue'
+  import { computed } from 'vue'
   import GlobalHeader from '@/components/global-header/GlobalHeader.vue'
   type NavItem = { icon?: string; path: string; title?: string }
 

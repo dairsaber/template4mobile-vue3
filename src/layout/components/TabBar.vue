@@ -1,15 +1,39 @@
 <script lang="ts" setup>
   import { Tabbar, TabbarItem } from 'vant'
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
+  type TabBarItemConfig = {
+    title: string
+    icon: string
+    badge?: number
+    path: string
+  }
+
+  type TabBarProps = {
+    items: TabBarItemConfig[]
+  }
+  const props = defineProps<TabBarProps>()
 
   const active = ref(0)
+  const router = useRouter()
+  // 跳转
+  const handleChange = (idx: number) => {
+    const { path } = props.items[idx]
+    console.log(`path`, path)
+    router.replace(path)
+  }
 </script>
 
 <template>
-  <Tabbar v-model="active">
-    <TabbarItem icon="home-o"> 首页</TabbarItem>
-    <TabbarItem icon="friends-o" badge="5">我的</TabbarItem>
-    <TabbarItem icon="setting-o" badge="20">设置</TabbarItem>
+  <Tabbar v-model="active" class="h-16 bg-gray-200" @change="handleChange">
+    <TabbarItem
+      v-for="(item, index) in props.items"
+      :key="index"
+      :icon="item.icon"
+      :badge="item.badge"
+    >
+      {{ item.title }}
+    </TabbarItem>
   </Tabbar>
 </template>
 

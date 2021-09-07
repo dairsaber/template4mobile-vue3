@@ -28,6 +28,7 @@
 
 <template>
   <van-nav-bar
+    class="h-12 bg-gray-200"
     :title="titleRef"
     @click-left="handleBack"
     safe-area-inset-top

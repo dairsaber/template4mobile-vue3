@@ -25,13 +25,20 @@ const constantRoutes: AppRouteRecordRaw[] = [
         component: () => import('@/views/home/Home.page.vue'),
         meta: { title: '首页', icon: 'DashboardOutlined' },
       },
-
-      // {
-      //   path: 'icons',
-      //   name: 'SvgIcon',
-      //   component: () => import('@/views/icons/SvgIcons.page.vue'),
-      //   meta: { title: 'SvgIcon', icon: 'svg-all' },
-      // },
+      {
+        path: 'profile',
+        name: 'Profile',
+        hidden: true,
+        component: () => import('@/views/profile/Profile.page.vue'),
+        meta: { title: '个人中心', icon: 'friends-o' },
+      },
+      {
+        path: 'setting',
+        name: 'Setting',
+        hidden: true,
+        component: () => import('@/views/setting/Setting.page.vue'),
+        meta: { title: '设置', icon: 'setting-o' },
+      },
     ],
   },
   {
