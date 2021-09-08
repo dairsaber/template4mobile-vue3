@@ -5,7 +5,7 @@ const data = [
   {
     name: 'plan',
     path: '/plan',
-    component: 'Layout',
+    component: 'ParentView',
     layout: true,
     meta: { title: '业务', icon: 'system', noCache: false },
     children: [
