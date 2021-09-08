@@ -1,6 +1,4 @@
-import { TableState } from 'ant-design-vue/lib/table/interface'
-
-import { computed, reactive, toRaw, onMounted, ComputedRef, Ref } from 'vue'
+import { computed, reactive, toRaw, onMounted, ComputedRef, Ref, ref, watch } from 'vue'
 import * as config from '@/settings/pagination.conf'
 import { useRequest } from '../request/useRequest'
 
@@ -11,16 +9,23 @@ export type ListProps = {
   action: QueryAction
 }
 
-type Pagination = TableState['pagination']
+type Pagination = {
+  current: number
+  pageSize: number
+  total: number
+}
 
 export type ListResult = {
   pagination: ComputedRef<Pagination>
-  dataSource: ComputedRef<unknown[]>
+  list: Ref<unknown[]>
   loading: Ref<boolean>
-  handleSearch: (page?: number) => void
+  finished: ComputedRef<boolean>
+  handleSearch: (reset?: boolean) => Promise<void>
 }
 
 export const useList = (props: ListProps): ListResult => {
+  const list = ref<unknown[]>([])
+  const isFirst = ref(true)
   const paginationModel = reactive({
     current: 1,
     pageSize: config.defaultPagesize,
@@ -38,19 +43,30 @@ export const useList = (props: ListProps): ListResult => {
     requestHandler: search,
     loading,
     result,
-  } = useRequest<PaginationList>(props.action, toRaw(searchQuery.value), { rows: [], total: 0 }, (result: Result) => {
-    return result.data as PaginationList
-  })
+  } = useRequest<PaginationList>(
+    props.action,
+    toRaw(searchQuery.value),
+    { rows: [], total: 0 },
+    (result: Result) => {
+      return result.data as PaginationList
+    }
+  )
+  /**
+   * 查询
+   * @param page 当前页码
+   */
+  const handleSearch = async (reset?: boolean) => {
+    if (finished.value || loading.value) return
 
-  onMounted(() => {
-    handleSearch()
-  })
+    if (reset) {
+      paginationModel.current = 1
+      list.value = []
+    }
 
-  // 分页事件
-  const handlePaginationChange = (page: number, pageSize: number) => {
-    paginationModel.current = page
-    paginationModel.pageSize = pageSize
-    handleSearch()
+    await search(toRaw(searchQuery.value))
+
+    paginationModel.current++
+    isFirst.value = false
   }
 
   // 分页参数
@@ -58,26 +74,29 @@ export const useList = (props: ListProps): ListResult => {
     return {
       ...toRaw(paginationModel),
       total: result.value.total,
-      pageSizeOptions: config.defaultPageSizeOptions,
-      showSizeChanger: true,
-      showTotal: config.showTotal,
-      onChange: handlePaginationChange,
-      onShowSizeChange: handlePaginationChange,
     }
   })
 
-  /**
-   * 查询
-   * @param page 当前页码
-   */
-  const handleSearch = async (page?: number) => {
-    if (page) {
-      paginationModel.current = page
+  const finished = computed(() => {
+    return (
+      !isFirst.value &&
+      pagination.value.current * pagination.value.pageSize >= pagination.value.total
+    )
+  })
+
+  onMounted(() => {
+    handleSearch()
+  })
+
+  watch(
+    () => result.value.rows,
+    (val) => {
+      list.value.push(...toRaw(val))
+    },
+    {
+      immediate: true,
     }
-    search(toRaw(searchQuery.value))
-  }
+  )
 
-  const dataSource = computed(() => result.value.rows)
-
-  return { pagination, dataSource, loading, handleSearch }
+  return { pagination, list, finished, loading, handleSearch }
 }

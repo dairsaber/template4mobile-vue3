@@ -5,7 +5,7 @@ type ResponseFormat<T> = (result: unknown) => T
 type RequestReturn<T> = {
   result: Ref<UnwrapRef<T>>
   loading: Ref<boolean>
-  requestHandler: (params: Recordable) => void
+  requestHandler: (params: Recordable) => Promise<void>
 }
 
 /**
@@ -16,7 +16,12 @@ type RequestReturn<T> = {
  * @param formatter 格式化成想要的值  不传的话就返回原来的
  * @returns 返回格式化的值
  */
-export const useRequest = <T>(action: (params: Recordable) => any, params: Recordable, defaultValue: T, formatter?: ResponseFormat<T>): RequestReturn<T> => {
+export const useRequest = <T>(
+  action: (params: Recordable) => any,
+  params: Recordable,
+  defaultValue: T,
+  formatter?: ResponseFormat<T>
+): RequestReturn<T> => {
   const loading = ref(false)
   const result = ref<T>(defaultValue)
 
